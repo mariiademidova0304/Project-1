@@ -17,9 +17,21 @@ export class IpMatchingLocation {
         this.city = city;
         this.lat = lat;
         this.lng = lng;
-        this.postalCode = postalCode;
+        this.postalCode = postalCode || `unknown`;
         this.timezone = timezone;
-        this.isp = isp;
+        this.isp = isp || `N/A`;
     }
 
+getDataToDisplay(): string[]{
+ const ipData = this.ip;
+ let addressData: string;
+ if(this.postalCode === `unknown`){
+    addressData = `${this.city}, \n${this.region}`;
+ } else{
+    addressData = `${this.city}, ${this.region}\n${this.postalCode}`;
+ }
+ const timezoneData = `UTC${this.timezone}`;
+ const ispData = this.isp;
+ return [ipData, addressData, timezoneData, ispData];
+}
 }
