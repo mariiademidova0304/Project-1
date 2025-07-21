@@ -1,5 +1,5 @@
-import { IpMatchingLocation } from "./models/Location";
-import { fetchUserIp, fetchLocationByIp } from "./services/apiService";
+import { IpMatchingLocation } from "./models/Location.js";
+import { fetchUserIp, fetchLocationByIp } from "./services/apiService.js";
 
 fetchUserIp().then(
     (ipString) => {
