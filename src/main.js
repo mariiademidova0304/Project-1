@@ -94,6 +94,16 @@ function displayMap(locationInstance) {
     var ipMatchingMarker = L.marker([locationInstance.lat, locationInstance.lng]).addTo(ipMatchingMap);
 }
 
+//creating a function that takes an array of display data and add corresponding data to array of divs
+function displayLocationData(locationInstance){
+    const locationDataDivs = document.querySelectorAll(`.location-data-container`);
+    const locationDataArray = locationInstance.getDataToDisplay();
+locationDataDivs.forEach((locationDataDiv, index) => {
+    const locationDataElement = document.createElement(`span`);
+    locationDataElement.textContent =  locationDataArray[index];
+    locationDataDiv.appendChild(locationDataElement);
+})
+}
 
 
 
