@@ -14,6 +14,7 @@ export async function fetchUserIp(): Promise<string>{
 }
 
 //getting location object from API, passing it an IP string we'll take from the input field
+//NEED TO ADD OBJECT TYPE
 export async function fetchLocationByIp(ip:string): Promise<{}>{
     try{
         const response = await fetch(`https://geo.ipify.org/api/v2/country,city?apiKey=at_OPiP6CE1TVqGdNZVSVxvxS0bdCGer&ipAddress=${ip}`);
