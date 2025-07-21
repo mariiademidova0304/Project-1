@@ -22,13 +22,15 @@ export class IpMatchingLocation {
         this.isp = isp || `N/A`;
     }
 
+//we're creating an array of divs for displaying data so made an array of data to display
+//need to clear localStorage before runnign this
 getDataToDisplay(): string[]{
  const ipData = this.ip;
  let addressData: string;
  if(this.postalCode === `unknown`){
-    addressData = `${this.city}, \n${this.region}`;
+    addressData = `${this.city},\n${this.region || this.country}`;
  } else{
-    addressData = `${this.city}, ${this.region}\n${this.postalCode}`;
+    addressData = `${this.city}, ${this.region || this.country}\n${this.postalCode}`;
  }
  const timezoneData = `UTC${this.timezone}`;
  const ispData = this.isp;

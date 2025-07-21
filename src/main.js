@@ -12,6 +12,7 @@ window.addEventListener(`load`, () => {
     const locationFromLocalStorage = JSON.parse(localStorage.getItem(`existingLocationToDisplay`));
     if (locationFromLocalStorage) {
         displayMap(locationFromLocalStorage);
+        displayLocationData(locationFromLocalStorage);
     } else {
         fetchUserIp().then((ipString) => {
             return fetchLocationByIp(ipString);
@@ -26,6 +27,7 @@ window.addEventListener(`load`, () => {
                 //saving to local storage
                 localStorage.setItem(`existingLocationToDisplay`, JSON.stringify(myIpMatchingLocation));
                 displayMap(myIpMatchingLocation);
+                displayLocationData(myIpMatchingLocation);
             })
             .catch(error => { console.error(error); })
             .finally(() => { console.log(`Location logged`); });
@@ -96,6 +98,7 @@ function displayMap(locationInstance) {
 
 //creating a function that takes an array of display data and add corresponding data to array of divs
 function displayLocationData(locationInstance){
+    locationInstance = new IpMatchingLocation(locationInstance.ip, locationInstance.country, locationInstance.region, locationInstance.city, locationInstance.lat, locationInstance.lng, locationInstance.postalCode, locationInstance.timezone, locationInstance.isp);
     const locationDataDivs = document.querySelectorAll(`.location-data-container`);
     const locationDataArray = locationInstance.getDataToDisplay();
 locationDataDivs.forEach((locationDataDiv, index) => {

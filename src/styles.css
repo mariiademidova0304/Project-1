@@ -77,11 +77,16 @@ button{
     border: none;
 }
 
-.location-data-container {
+.location-data-main-container {
     display: flex;
     width: 70vw;
     height: 120px;
     background-color: white;
     justify-content: space-around;
     border-radius: 10px;
+}
+
+.location-data-container{
+    display: flex;
+    flex-direction: column;
 }
