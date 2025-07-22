@@ -55,6 +55,12 @@ inputForm.addEventListener(`submit`, (event) => {
                     ipMatchingMap.remove();
                 }
                     displayMap(newIpMatchingLocation);
+                    //checking if data already exists inside data container
+                    let dynamicallyCreatedDataSpans = document.querySelectorAll(`.location-data-container`);
+                    if(dynamicallyCreatedDataSpans.length > 0){
+                        //removing all the dynamically created span elements of said class
+                        document.querySelectorAll(`.location-data-container`).forEach(span => span.remove());
+                    }
                     displayLocationData(newIpMatchingLocation);
             })
             .catch(error => { console.error(error); })
@@ -81,10 +87,11 @@ function displayMap(locationInstance) {
 //creating a function that takes an array of display data and add corresponding data to array of divs
 function displayLocationData(locationInstance){
     locationInstance = new IpMatchingLocation(locationInstance.ip, locationInstance.country, locationInstance.region, locationInstance.city, locationInstance.lat, locationInstance.lng, locationInstance.postalCode, locationInstance.timezone, locationInstance.isp);
-    const locationDataDivs = document.querySelectorAll(`.location-data-container`);
+    const locationDataDivs = document.querySelectorAll(`.location-data-label`);
     const locationDataArray = locationInstance.getDataToDisplay();
 locationDataDivs.forEach((locationDataDiv, index) => {
     const locationDataElement = document.createElement(`span`);
+    locationDataElement.classList.add(`location-data-container`);
     locationDataElement.textContent =  locationDataArray[index];
     locationDataDiv.appendChild(locationDataElement);
 })
