@@ -45,13 +45,15 @@
     <div class="text-elements-container">
       <h1>IP Address Tracker</h1>
       <form class="input-container" novalidate>
-        <input type="text" id="ip-input" placeholder=" Search for any IP address or domain" required/><button type="submit">></button>
+        <input type="text" id="ip-input" placeholder=" Search for any IP address or domain" required /><button
+          type="submit">></button>
       </form>
+      <span class="error-message" id="input-error-message"></span>
       <div class="location-data-main-container">
-        <div class="location-data-label"><span>IP Address</span></div>
-        <div class="location-data-label"><span>Location</span></div>
-        <div class="location-data-label"><span>Timezone</span></div>
-        <div class="location-data-label"><span>ISP</span></div>
+        <div class="location-data-wrapper"><span class="location-data-label">IP ADDRESS</span></div>
+        <div class="location-data-wrapper"><span class="location-data-label">LOCATION</span></div>
+        <div class="location-data-wrapper"><span class="location-data-label">TIMEZONE</span></div>
+        <div class="location-data-wrapper"><span class="location-data-label">ISP</span></div>
       </div>
     </div>
   </div>

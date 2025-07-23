@@ -2,8 +2,7 @@ import { IpMatchingLocation } from "./models/Location.js";
 import { fetchUserIp, fetchLocationByIp } from "./services/apiService.js";
 const inputForm = document.querySelector(`.input-container`);
 const ipInputField = document.getElementById(`ip-input`);
-const locationDataBox = document.querySelector(`.location-data-container`);
-const mapBox = document.getElementById(`map`);
+const inputError = document.getElementById(`input-error-message`);
 var ipMatchingMap;
 
 //added event listener that checks whether we've gotten a location object saved in local storage already
@@ -35,10 +34,39 @@ window.addEventListener(`load`, () => {
     }
 })
 
+//adding custom validity check
+ipInputField.addEventListener(`blur`, () => {
+    if (ipInputField.validity.valueMissing) {
+        ipInputField.setCustomValidity(`Please, add IP address`);
+    } else if(!validateIPInput(ipInputField.value)){
+        ipInputField.setCustomValidity(`Please, enter a correct IP address`)
+    }    else {
+        ipInputField.setCustomValidity(``);
+    }
+    inputError.textContent = ipInputField.validationMessage;
+    if(inputError.textContent === ``){
+         inputError.style.visibility = `hidden`;
+    }else{
+        inputError.style.visibility = `visible`;
+    }
+})
+function validateIPInput(ipAddress){
+    if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipAddress)) {  
+    return true;
+  } else {
+  alert("Please, enter a valid IP address"); 
+  return false;
+  }
+}
+
+
 inputForm.addEventListener(`submit`, (event) => {
     event.preventDefault();
-    //mock if statement to check validity later
-    if (true) {
+    //checking validity
+    if (!inputForm.checkValidity()){
+        alert(`Please, provide correct IP address`)
+    } else {
+         inputError.style.visibility = `hidden`;
         const ipToDisplay = ipInputField.value;
         fetchLocationByIp(ipToDisplay)
             .then((locationObject) => {
@@ -46,8 +74,6 @@ inputForm.addEventListener(`submit`, (event) => {
                 const locationDetails = locationObject.location;
                 const locationIsp = locationObject.isp;
                 return new IpMatchingLocation(locationObjectIp, locationDetails.country, locationDetails.region, locationDetails.city, locationDetails.lat, locationDetails.lng, locationDetails.postalCode, locationDetails.timezone, locationIsp);
-                //console.log(`Got this data from API`);
-                //console.log()
             })
             .then((newIpMatchingLocation) => {
                 //checking that map indeed exists already, then removing previous map and creating a new one
@@ -86,8 +112,9 @@ function displayMap(locationInstance) {
 
 //creating a function that takes an array of display data and add corresponding data to array of divs
 function displayLocationData(locationInstance){
+    //making locationInstance an instance of location class so that we could use its method
     locationInstance = new IpMatchingLocation(locationInstance.ip, locationInstance.country, locationInstance.region, locationInstance.city, locationInstance.lat, locationInstance.lng, locationInstance.postalCode, locationInstance.timezone, locationInstance.isp);
-    const locationDataDivs = document.querySelectorAll(`.location-data-label`);
+    const locationDataDivs = document.querySelectorAll(`.location-data-wrapper`);
     const locationDataArray = locationInstance.getDataToDisplay();
 locationDataDivs.forEach((locationDataDiv, index) => {
     const locationDataElement = document.createElement(`span`);
