@@ -65,28 +65,77 @@ h1{
 
 #ip-input{
     flex-grow: 1;
-    min-width: auto;
+    min-width: 0;
     border: none;
     padding: 10px;
+}
+
+#ip-input:hover{
+    cursor: pointer;
 }
 
 button{
     background-color: black;
     color: white;
-    width: 3vw;
+    width:3.5rem;
     border: none;
+}
+
+button:hover {
+    cursor: pointer;
 }
 
 .location-data-main-container {
     display: flex;
     width: 70vw;
-    height: 120px;
+    height: fit-content;
     background-color: white;
     justify-content: space-around;
     border-radius: 10px;
+    padding: 20px;
+}
+
+.location-data-wrapper{
+    display: flex;
+    flex-direction: column;
+    height: max-content;
+    padding: 10px;
+    gap: 10px;
 }
 
 .location-data-label{
-    display: flex;
-    flex-direction: column;
+    font-size:x-small;
+    font-weight: 700;
+    color: hsl(0, 0%, 58%);
 }
+
+@media (width < 480px) {
+    .text-elements-container{
+        gap:20px;
+    }
+    .location-data-main-container {
+       flex-direction: column; 
+       align-items: center;
+       padding: 10px;
+    }
+
+     .location-data-wrapper {
+       text-align: center;
+    }
+
+     .input-container {
+       width:70vw;
+       margin:0;
+    }
+
+    .top-image-container {
+    height: 40vh;
+    width: 100%;
+}
+
+.bottom-image-container {
+    height: 60vh;
+    width: 100%;
+}
+}
+
